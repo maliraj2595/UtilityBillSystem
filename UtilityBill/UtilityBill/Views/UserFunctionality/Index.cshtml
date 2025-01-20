@@ -1,0 +1,126 @@
+﻿@model Tuple<UtilityBill.User, string, List<UtilityBill.BillDetail>>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">User Details</h2>
+
+        <button type="button" class="btn btn-primary" id="btnShowApplicationDetails">
+            View Application Details
+        </button>
+
+        @if (Model.Item1 != null)
+        {
+            <table class="table mt-4">
+                <tbody>
+                    <tr>
+                        <th>Username:</th>
+                        <td>@Model.Item1.Username</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>@Model.Item1.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Gender:</th>
+                        <td>@Model.Item1.Gender</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>@Model.Item1.DateOfBirth</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile Number:</th>
+                        <td>@Model.Item1.MobileNumber</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+
+
+<div id="applicationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="applicationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="applicationModalLabel">Application Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Application Status:</strong> @Model.Item2</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Item3 != null && Model.Item3.Count > 0)
+{
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Bill Information</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Bill Date</th>
+                            <th>Units Consumed</th>
+                            <th>Total Bill</th>
+                            <th>Bill Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bill in Model.Item3)
+                        {
+                            <tr>
+                                <td>@bill.BillDate</td>
+                                <td>@bill.UnitsConsumed</td>
+                                <td>@bill.TotalBill</td>
+                                <td>@bill.BillStatus</td>
+                                <td>
+                                    @if (bill.BillStatus == BillStatus.UNPAID)
+                                    {
+                                        <form asp-action="PayBill" asp-route-billId="@bill.BillDetailId" method="post">
+                                            <button type="submit" class="btn btn-primary">Pay Bill</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span>Paid</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <p>No bills found.</p>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnShowApplicationDetails").click(function () {
+                $("#applicationModal").modal("show");
+            });
+        });
+    </script>
+}

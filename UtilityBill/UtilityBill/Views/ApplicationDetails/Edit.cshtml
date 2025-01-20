@@ -1,0 +1,54 @@
+﻿@model UtilityBill.ApplicationDetail
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>ApplicationDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ApplicationDetailId" />
+            <div class="form-group">
+                <label asp-for="ApplicationDate" class="control-label"></label>
+                <input asp-for="ApplicationDate" class="form-control" />
+                <span asp-validation-for="ApplicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationStatus" class="control-label"></label>
+                <select asp-for="ApplicationStatus" class="form-control" required>
+                    <option value="@ApplicationStatus.NEW">New</option>
+                    <option value="@ApplicationStatus.APPROVED">APPROVED</option>
+                    <option value="@ApplicationStatus.IN_PROCESS">IN_PROCESS</option>
+                    <option value="@ApplicationStatus.ON_HOLD">ON_HOLD</option>
+                </select>
+                <span asp-validation-for="ApplicationStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConnectionType" class="control-label"></label>
+                <input asp-for="ConnectionType" class="form-control" />
+                <span asp-validation-for="ConnectionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiredLoad" class="control-label"></label>
+                <input asp-for="RequiredLoad" class="form-control" />
+                <span asp-validation-for="RequiredLoad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

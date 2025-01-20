@@ -1,0 +1,118 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<h1>Signup</h1>
+
+<form asp-action="SignUp" method="post" class="signup-form needs-validation" novalidate>
+    <div class="form-group">
+        <label asp-for="Username">Username</label>
+        <input asp-for="Username" class="form-control" required>
+        <span asp-validation-for="Username" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a valid username.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" class="form-control" required>
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a valid email address.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="text" class="form-control" required>
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a password.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Gender">Gender</label>
+        <select asp-for="Gender" class="form-control" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <span asp-validation-for="Gender" class="text-danger"></span>
+        <div class="invalid-feedback">Please select a gender.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOfBirth">Date of Birth</label>
+        <input asp-for="DateOfBirth" type="date" class="form-control" required>
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a valid date of birth.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MobileNumber">Mobile Number</label>
+        <input asp-for="MobileNumber" class="form-control" required>
+        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a mobile number.</div>
+    </div>
+
+    <hr />
+
+    <h3>Address Details</h3>
+
+    <div class="form-group">
+        <label asp-for="Address.Street">Street</label>
+        <input asp-for="Address.Street" class="form-control" required>
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a street.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.City">City</label>
+        <input asp-for="Address.City" class="form-control" required>
+        <span asp-validation-for="Address.City" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a city.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.PinCode">Pin Code</label>
+        <input asp-for="Address.PinCode" class="form-control" required>
+        <span asp-validation-for="Address.PinCode" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a pin code.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.State">State</label>
+        <input asp-for="Address.State" class="form-control" required>
+        <span asp-validation-for="Address.State" class="text-danger"></span>
+        <div class="invalid-feedback">Please enter a state.</div>
+    </div>
+
+    <hr />
+
+    <h3>Application Detail</h3>
+
+    <div class="form-group">
+        <label asp-for="ApplicationDetail.ConnectionType">Connection Type</label>
+        <select asp-for="ApplicationDetail.ConnectionType" class="form-control" required>
+            <option value="">Select Connection Type</option>
+            @foreach (var connectionType in Enum.GetValues(typeof(UtilityBill.Models.ConnectionType)))
+            {
+                <option value="@connectionType.ToString()">@connectionType</option>
+            }
+        </select>
+        <span asp-validation-for="ApplicationDetail.ConnectionType" class="text-danger"></span>
+        <div class="invalid-feedback">Please select a connection type.</div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ApplicationDetail.RequiredLoad">Required Load</label>
+        <select asp-for="ApplicationDetail.RequiredLoad" class="form-control" required>
+            <option value="">Select Required Load</option>
+            @foreach (var load in Enum.GetValues(typeof(UtilityBill.Models.RequiredLoad)))
+            {
+                <option value="@load.ToString()">@load.ToString()</option>
+            }
+        </select>
+        <span asp-validation-for="ApplicationDetail.RequiredLoad" class="text-danger"></span>
+        <div class="invalid-feedback">Please select a required load.</div>
+    </div>
+
+    <button type="submit" class="btn btn-danger btn-block">Signup</button>
+</form>
